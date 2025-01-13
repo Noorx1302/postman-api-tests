@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "17519c3f-dca1-4288-a508-90f707cb770f",
+		"name": "GoRestAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40898729"
+	},
+	"item": [
+		{
+			"name": "Create a new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"id\",responseData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const randomAlphaNum = Math.random().toString(36).substring(2,6);\r",
+							"const username = \"John\" + \" \" + randomAlphaNum;\r",
+							"const email = \"John\"+ randomAlphaNum + \"@gmail.com\";\r",
+							"const gender = Math.random() < 0.5 ? \"male\" : \"female\";\r",
+							"\r",
+							"pm.environment.set(\"username\",username);\r",
+							"pm.environment.set(\"email\",email);\r",
+							"pm.environment.set(\"gender\",gender);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"name\":\"{{username}}\", \r\n    \"gender\": \"{{gender}}\", \r\n    \"email\":\"{{email}}\", \r\n    \"status\":\"active\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				},
+				"description": "This endpoint makes an HTTP POST request to create a new user on the server. The request payload should include random values for name, email, and gender. The request body should be in JSON format.\n\nThe last execution of this request returned a 401 status code with a JSON response body containing a \"message\" field.\n\nExample request payload:\n\n``` json\n{\n  \"name\": \"randomly generated name\",\n  \"email\": \"randomly generated email\",\n  \"gender\": \"randomly generated gender\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{id}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify user details",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"id\": \"{{userId}}\",\r\n    \"status\":\"inactive\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{id}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/7628251",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"7628251"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{BearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
